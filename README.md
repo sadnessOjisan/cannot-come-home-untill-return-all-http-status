@@ -74,8 +74,13 @@ Micro Post
 
 cURL
 
-```
+```zsh
+# get user
 curl  http://localhost:3000/user
 
-curl -X POST http://localhost:3000/login -H "Accept: application/json" -H "Content-type: application/json" -d '{ "id" : "1", "password": "aa" }'
+# signin
+curl -X POST http://localhost:3000/login -H "Accept: application/json" -H "Content-type: application/json" -d '{ "name" : "hanako", "password": "aa" }'
+
+# sign up
+curl -X POST http://localhost:3000/signup -H "Accept: application/json" -H "Content-type: application/json" -d '{ "name" : "hanako", "password": "aa" }'
 ```

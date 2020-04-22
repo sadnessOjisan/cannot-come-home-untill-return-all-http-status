@@ -1,17 +1,39 @@
 import { AuthRepository } from "../repository/AuthRepository";
+import { User } from "../entity/User";
+import { UserRepository } from "../repository/UserRepository";
+import { UserService } from "./UserService";
+import { ShouldHandleError } from "../helper/ShouldHandleError";
+import { ERROR_CODE } from "../const/Error";
 
 export class AuthService {
-  private constructor(private repository: AuthRepository) {}
+  private constructor(
+    private authRepository: AuthRepository,
+    private userRepository: UserRepository,
+    private userService: UserService
+  ) {}
 
-  static of(repository: AuthRepository) {
-    return new AuthService(repository);
+  static of(
+    authRepository: AuthRepository,
+    userRepository: UserRepository,
+    userService: UserService
+  ) {
+    return new AuthService(authRepository, userRepository, userService);
   }
 
-  getWillLoginUser(id: number, password: string) {
-    const selectedUSer = this.repository.getWillLoginUserRecord(id);
-    if (password === selectedUSer.password) {
-    } else {
-      throw new Error("invalid password");
+  checkPassword(name: string, password: string) {
+    const user = this.userRepository.getUserByName(name);
+    const loginTargetUser = this.authRepository.getLoginTargetUserByUid(
+      user.id
+    );
+    if (password !== loginTargetUser.password) {
+      throw new ShouldHandleError(ERROR_CODE.INVALID_PASSWORD);
     }
+  }
+
+  signUp(name: string, password: string) {
+    const hashedPassword = password;
+    this.userService.updateUserSequencialId();
+    const user = this.userService.createNewUser(name);
+    this.authRepository.registerAuthInfo(user.id, hashedPassword);
   }
 }

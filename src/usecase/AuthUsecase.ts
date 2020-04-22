@@ -2,6 +2,7 @@ import { AuthService } from "../service/AuthService";
 import { ERROR_CODE } from "../const/Error";
 import { ShouldHandleError } from "../helper/ShouldHandleError";
 import { Request } from "express";
+import { User } from "../entity/User";
 
 export class AuthUsecase {
   private constructor(private service: AuthService) {}
@@ -11,19 +12,24 @@ export class AuthUsecase {
   }
 
   signIn(request: Request) {
-    const { id, password } = request.body;
-    console.log(request.body);
-    const { validId, validPassWord } = this._validation(id, password);
-    this.service.getWillLoginUser(validId, validPassWord);
+    const { name, password } = request.body;
+    const { validName, validPassWord } = this._validation(name, password);
+    this.service.checkPassword(validName, validPassWord);
   }
 
-  _validation(id: any, password: any) {
-    if (!id || !password) {
+  signUp(request: Request) {
+    const { name, password } = request.body;
+    const { validName, validPassWord } = this._validation(name, password);
+    this.service.signUp(validName, validPassWord);
+  }
+
+  _validation(name: any, password: any) {
+    if (!name || !password) {
       throw new ShouldHandleError(ERROR_CODE.MISSING_AUTH_PARAMS);
     }
-    if (typeof id !== "number" || typeof password !== "string") {
+    if (typeof name !== "string" || typeof password !== "string") {
       throw new ShouldHandleError(ERROR_CODE.INVALID_AUTH_PARAMS);
     }
-    return { validId: id, validPassWord: password };
+    return { validName: name, validPassWord: password };
   }
 }

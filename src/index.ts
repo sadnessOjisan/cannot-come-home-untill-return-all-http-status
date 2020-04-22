@@ -27,9 +27,39 @@ app.get("/user", function (req, res) {
 });
 
 app.post("/login", function (req: Request, res) {
-  const authUsecase = AuthUsecase.of(AuthService.of(AuthRepository.of()));
+  const authUsecase = AuthUsecase.of(
+    AuthService.of(
+      AuthRepository.of(),
+      UserRepository.of(),
+      UserService.of(UserRepository.of())
+    )
+  );
   try {
     const users = authUsecase.signIn(req);
+    res.status(200).json(users);
+    return;
+  } catch (e) {
+    if (e instanceof ShouldHandleError) {
+      console.log(e.toJSON().errorInfo.message);
+      res
+        .status(e.toJSON().errorInfo.statusCode)
+        .json(e.toJSON().errorInfo.message);
+      return;
+    }
+    res.status(ERROR_CODE.WAKARAN.statusCode).json(ERROR_CODE.WAKARAN.message);
+  }
+});
+
+app.post("/signup", function (req: Request, res) {
+  const authUsecase = AuthUsecase.of(
+    AuthService.of(
+      AuthRepository.of(),
+      UserRepository.of(),
+      UserService.of(UserRepository.of())
+    )
+  );
+  try {
+    const users = authUsecase.signUp(req);
     res.status(200).json(users);
     return;
   } catch (e) {

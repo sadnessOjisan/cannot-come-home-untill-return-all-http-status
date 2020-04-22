@@ -22,6 +22,7 @@ export type DBType = {
   user: UserType[];
   post: PostType[];
   authorization: AuthorizationType[];
+  userSequentialId: number;
 };
 
 export type ErrorMessageType = {

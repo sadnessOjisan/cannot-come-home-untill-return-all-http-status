@@ -10,4 +10,13 @@ export class UserService {
   getUsers() {
     return this.repository.getUsers();
   }
+
+  updateUserSequencialId() {
+    this.repository.updateUserSequencialId();
+  }
+
+  createNewUser(name: string) {
+    const user = this.repository.createNewUser(name);
+    return user;
+  }
 }

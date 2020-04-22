@@ -9,6 +9,10 @@ export const ERROR_CODE = {
     statusCode: 404,
     message: "認証テーブルからデータ見つからない",
   },
+  USER_RESOURCE_NOTFOUND: {
+    statusCode: 404,
+    message: "Userテーブルからデータ見つからない",
+  },
   // 入力チェック系
   MISSING_AUTH_PARAMS: {
     statusCode: 400,
