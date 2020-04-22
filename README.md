@@ -73,6 +73,18 @@ Micro Post
 
 ## DEV
 
+how to develop
+
+```zsh
+yarn install
+
+yarn build
+
+node dist/index.js
+
+yarn dev
+```
+
 cURL
 
 ```zsh
