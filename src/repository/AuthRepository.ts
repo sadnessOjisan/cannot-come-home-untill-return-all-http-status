@@ -1,6 +1,7 @@
 import { data } from "../db/memory";
-import { PID, PostType } from "../type";
-import { Post } from "../entity/Post";
+
+import { ERROR_CODE } from "../const/Error";
+import { ShouldHandleError } from "../helper/ShouldHandleError";
 
 export class AuthRepository {
   constructor() {}
@@ -14,7 +15,7 @@ export class AuthRepository {
       (record) => record.user_id === id
     );
     if (!selectedPost) {
-      throw new Error("not found");
+      throw new ShouldHandleError(ERROR_CODE.AUTH_RESOURCE_NOTFOUND);
     }
     return selectedPost;
   }

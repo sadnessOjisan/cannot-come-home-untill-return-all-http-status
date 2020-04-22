@@ -2,7 +2,7 @@ import { PostService } from "../service/PostService";
 import { IdService } from "../service/IdService";
 import { UserService } from "../service/UserService";
 
-export class OkUsecase {
+export class UserGetUsecase {
   private constructor(
     private idService: IdService,
     private postService: PostService,
@@ -14,10 +14,10 @@ export class OkUsecase {
     postService: PostService,
     userService: UserService
   ) {
-    return new OkUsecase(idService, postService, userService);
+    return new UserGetUsecase(idService, postService, userService);
   }
 
-  getOkStatusCode() {
+  getUser() {
     return this.userService.getUsers();
   }
 }

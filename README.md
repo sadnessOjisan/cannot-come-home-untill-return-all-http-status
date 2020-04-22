@@ -69,3 +69,13 @@
 ## 前提
 
 Micro Post
+
+## DEV
+
+cURL
+
+```
+curl  http://localhost:3000/user
+
+curl -X POST http://localhost:3000/login -H "Accept: application/json" -H "Content-type: application/json" -d '{ "id" : "1", "password": "aa" }'
+```

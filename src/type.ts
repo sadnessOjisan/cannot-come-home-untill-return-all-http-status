@@ -23,3 +23,8 @@ export type DBType = {
   post: PostType[];
   authorization: AuthorizationType[];
 };
+
+export type ErrorMessageType = {
+  statusCode: number;
+  message: string;
+};

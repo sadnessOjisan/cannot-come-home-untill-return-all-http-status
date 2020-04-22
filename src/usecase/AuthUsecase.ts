@@ -1,6 +1,7 @@
-import { IdService } from "../service/IdService";
-import { UserService } from "../service/UserService";
 import { AuthService } from "../service/AuthService";
+import { ERROR_CODE } from "../const/Error";
+import { ShouldHandleError } from "../helper/ShouldHandleError";
+import { Request } from "express";
 
 export class AuthUsecase {
   private constructor(private service: AuthService) {}
@@ -9,16 +10,20 @@ export class AuthUsecase {
     return new AuthUsecase(service);
   }
 
-  signIn(id: number | undefined, passWord: string | undefined) {
-    const { validId, validPassWord } = this._validation(id, passWord);
+  signIn(request: Request) {
+    const { id, password } = request.body;
+    console.log(request.body);
+    const { validId, validPassWord } = this._validation(id, password);
     this.service.getWillLoginUser(validId, validPassWord);
   }
 
-  _validation(id: number | undefined, passWord: string | undefined) {
-    if (!id || !passWord) {
-      // 入力チェック
-      throw new Error("missing params");
+  _validation(id: any, password: any) {
+    if (!id || !password) {
+      throw new ShouldHandleError(ERROR_CODE.MISSING_AUTH_PARAMS);
     }
-    return { validId: id, validPassWord: passWord };
+    if (typeof id !== "number" || typeof password !== "string") {
+      throw new ShouldHandleError(ERROR_CODE.INVALID_AUTH_PARAMS);
+    }
+    return { validId: id, validPassWord: password };
   }
 }
