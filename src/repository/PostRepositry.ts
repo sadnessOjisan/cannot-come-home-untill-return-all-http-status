@@ -1,5 +1,6 @@
 import { data } from "../db/memory";
-import { PID } from "../type";
+import { PID, PostType } from "../type";
+import { Post } from "../entity/Post";
 
 export class PostRepositry {
   constructor() {}
@@ -9,6 +10,14 @@ export class PostRepositry {
   }
 
   getPost(id: PID) {
-    return data.post.find((p) => p.id === id);
+    const selectedPost = data.post.find((p) => p.id === id);
+    if (!selectedPost) {
+      throw new Error("not found");
+    }
+    return this.convertEntity(selectedPost);
   }
+
+  private convertEntity = (data: PostType) => {
+    return Post.of(data.id, data.content);
+  };
 }

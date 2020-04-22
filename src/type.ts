@@ -1,19 +1,25 @@
-export type UID = number & {};
+export type UID = number & { __UID: undefined };
 
-export type PID = number & {};
+export type PID = number & { __PID: undefined };
 
 export type UserType = {
-  id: UID;
+  id: number;
   name: string;
 };
 
 export type PostType = {
-  id: PID;
+  id: number;
   content: string;
-  user_id: UID;
+  user_id: number;
+};
+
+export type AuthorizationType = {
+  user_id: number;
+  password: string;
 };
 
 export type DBType = {
   user: UserType[];
   post: PostType[];
+  authorization: AuthorizationType[];
 };
