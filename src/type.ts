@@ -16,6 +16,7 @@ export type PostType = {
 export type AuthorizationType = {
   user_id: number;
   password: string;
+  token: string;
 };
 
 export type DBType = {

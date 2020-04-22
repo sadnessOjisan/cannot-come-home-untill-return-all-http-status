@@ -25,7 +25,11 @@ export class AuthService {
     const loginTargetUser = this.authRepository.getLoginTargetUserByUid(
       user.id
     );
-    if (password !== loginTargetUser.password) {
+
+    if (password === loginTargetUser.password) {
+      const token = loginTargetUser.token;
+      return token;
+    } else {
       throw new ShouldHandleError(ERROR_CODE.INVALID_PASSWORD);
     }
   }
@@ -34,6 +38,7 @@ export class AuthService {
     const hashedPassword = password;
     this.userService.updateUserSequencialId();
     const user = this.userService.createNewUser(name);
-    this.authRepository.registerAuthInfo(user.id, hashedPassword);
+    const token = this.authRepository.registerAuthInfo(user.id, hashedPassword);
+    return token;
   }
 }

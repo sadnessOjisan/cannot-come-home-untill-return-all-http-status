@@ -38,10 +38,13 @@ app.post("/login", function (req: Request, res) {
     )
   );
   try {
-    const users = authUsecase.signIn(req);
+    const token = authUsecase.signIn(req);
     // login成功は200
     // FYI: https://stackoverflow.com/questions/7064374/proper-http-headers-for-login-success-fail-responses
-    res.status(200).json(users);
+    res.status(200).json();
+    res.cookie("httpstatus-zenbu-kaesuzo", token, {
+      httpOnly: true,
+    });
     return;
   } catch (e) {
     if (e instanceof ShouldHandleError) {
@@ -65,8 +68,11 @@ app.post("/signup", function (req: Request, res) {
     )
   );
   try {
-    const users = authUsecase.signUp(req);
-    res.status(201).json(users);
+    const token = authUsecase.signUp(req);
+    res.status(201).json();
+    res.cookie("httpstatus-zenbu-kaesuzo", token, {
+      httpOnly: true,
+    });
     return;
   } catch (e) {
     if (e instanceof ShouldHandleError) {

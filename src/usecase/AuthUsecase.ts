@@ -14,13 +14,15 @@ export class AuthUsecase {
   signIn(request: Request) {
     const { name, password } = request.body;
     const { validName, validPassWord } = this._validation(name, password);
-    this.service.checkPassword(validName, validPassWord);
+    const token = this.service.checkPassword(validName, validPassWord);
+    return token;
   }
 
   signUp(request: Request) {
     const { name, password } = request.body;
     const { validName, validPassWord } = this._validation(name, password);
-    this.service.signUp(validName, validPassWord);
+    const token = this.service.signUp(validName, validPassWord);
+    return token;
   }
 
   _validation(name: any, password: any) {
