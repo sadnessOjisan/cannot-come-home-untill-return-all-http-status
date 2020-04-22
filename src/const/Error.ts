@@ -26,6 +26,15 @@ export const ERROR_CODE = {
     statusCode: 400,
     message: "フォーマットと違う値を認証に入れてる",
   },
+  // リクエストヘッダ系
+  UNSUPPORTED_HTTP_VERSION: {
+    statusCode: 505,
+    message: "HTTP のバージョンを対応していいません",
+  },
+  UNSUPPORTED_HTTP_METHOD: {
+    statusCode: 501,
+    message: "HTTP のmethodを対応していいません",
+  },
   // 不可解系
   WAKARAN: {
     statusCode: 500,

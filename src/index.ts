@@ -1,4 +1,5 @@
 import express, { Request } from "express";
+import bodyParser from "body-parser";
 import { UserGetUsecase } from "./usecase/UserGetUsecase";
 import { AuthUsecase } from "./usecase/AuthUsecase";
 import { IdService } from "./service/IdService";
@@ -10,13 +11,14 @@ import { injectInitData } from "./helper/initData";
 import { AuthService } from "./service/AuthService";
 import { AuthRepository } from "./repository/AuthRepository";
 import { ShouldHandleError } from "./helper/ShouldHandleError";
+import { commponValidation } from "./helper/statusCheck";
 import { ERROR_CODE } from "./const/Error";
-import bodyParser from "body-parser";
 
 const app = express();
 app.use(bodyParser.json());
 
 app.get("/user", function (req, res) {
+  commponValidation(req);
   const usecase = UserGetUsecase.of(
     IdService.of(),
     PostService.of(PostRepositry.of()),
@@ -27,6 +29,7 @@ app.get("/user", function (req, res) {
 });
 
 app.post("/login", function (req: Request, res) {
+  commponValidation(req);
   const authUsecase = AuthUsecase.of(
     AuthService.of(
       AuthRepository.of(),
@@ -53,6 +56,7 @@ app.post("/login", function (req: Request, res) {
 });
 
 app.post("/signup", function (req: Request, res) {
+  commponValidation(req);
   const authUsecase = AuthUsecase.of(
     AuthService.of(
       AuthRepository.of(),

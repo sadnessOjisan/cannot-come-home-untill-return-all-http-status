@@ -8,8 +8,8 @@
 | 101         | Switching Protocols           | TBD              |     |
 | 102         | TBD                           | TBD              |     |
 | 103         | TBD                           | TBD              |     |
-| 200         | OK                            | TBD              |     |
-| 201         | Created                       | TBD              |     |
+| 200         | OK                            | TBD              | ✅  |
+| 201         | Created                       | TBD              | ✅  |
 | 202         | Accepted                      | TBD              |     |
 | 203         | Non-Authoritative Information | TBD              |     |
 | 204         | No Content                    | TBD              |     |
@@ -27,11 +27,11 @@
 | 306         | TBD                           | TBD              |     |
 | 307         | TBD                           | TBD              |     |
 | 308         | TBD                           | TBD              |     |
-| 400         | TBD                           | TBD              |     |
+| 400         | TBD                           | TBD              | ✅  |
 | 401         | TBD                           | TBD              |     |
 | 402         | TBD                           | TBD              |     |
 | 403         | TBD                           | TBD              |     |
-| 404         | TBD                           | TBD              |     |
+| 404         | TBD                           | TBD              | ✅  |
 | 405         | TBD                           | TBD              |     |
 | 406         | TBD                           | TBD              |     |
 | 407         | TBD                           | TBD              |     |
@@ -55,11 +55,12 @@
 | 428         | TBD                           | TBD              |     |
 | 429         | TBD                           | TBD              |     |
 | 431         | TBD                           | TBD              |     |
-| 501         | TBD                           | TBD              |     |
+| 500         | TBD                           | TBD              | ✅  |
+| 501         | TBD                           | TBD              | ✅  |
 | 502         | TBD                           | TBD              |     |
 | 503         | TBD                           | TBD              |     |
 | 504         | TBD                           | TBD              |     |
-| 505         | TBD                           | TBD              |     |
+| 505         | TBD                           | TBD              | ✅  |
 | 506         | TBD                           | TBD              |     |
 | 507         | TBD                           | TBD              |     |
 | 508         | TBD                           | TBD              |     |
