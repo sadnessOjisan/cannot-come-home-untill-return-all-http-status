@@ -18,6 +18,16 @@ export class AuthRepository {
     return selectedAuthInfo;
   }
 
+  getUserIdByToken(token: string) {
+    const selectedAuthInfo = data.authorization.find(
+      (record) => record.token === token
+    );
+    if (!selectedAuthInfo) {
+      throw new ShouldHandleError(ERROR_CODE.AUTH_RESOURCE_NOTFOUND);
+    }
+    return selectedAuthInfo.user_id;
+  }
+
   registerToken(uid: UID) {
     const nuid = Number(uid);
     data.authorization.map((record) => {

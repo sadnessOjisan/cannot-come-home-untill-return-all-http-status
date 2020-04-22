@@ -28,7 +28,7 @@
 | 307         | TBD                           | TBD              |     |
 | 308         | TBD                           | TBD              |     |
 | 400         | TBD                           | TBD              | ✅  |
-| 401         | TBD                           | TBD              |     |
+| 401         | TBD                           | TBD              | ✅  |
 | 402         | TBD                           | TBD              |     |
 | 403         | TBD                           | TBD              |     |
 | 404         | TBD                           | TBD              | ✅  |
@@ -89,11 +89,14 @@ cURL
 
 ```zsh
 # get user
-curl  http://localhost:3000/user
+curl  http://localhost:3000/users
 
 # signin
-curl -X POST http://localhost:3000/login -H "Accept: application/json" -H "Content-type: application/json" -d '{ "name" : "hanako", "password": "aa" }'
+curl  --include -X POST http://localhost:3000/login -H "Accept: application/json" -H "Content-type: application/json" -d '{ "name" : "taro", "password": "pass" }'
 
 # sign up
-curl -X POST http://localhost:3000/signup -H "Accept: application/json" -H "Content-type: application/json" -d '{ "name" : "hanako", "password": "aa" }'
+curl -X POST http://localhost:3000/signup -H "Accept: application/json" -H "Content-type: application/json" -d '{ "name" : "hanako", "password": "hanapass" }'
+
+# me
+curl --include -b 'httpstatuszenbukaesuzo=initialToken;' http://localhost:3000/me
 ```
