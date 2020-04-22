@@ -4,6 +4,10 @@ export const ERROR_CODE = {
     statusCode: 400,
     message: "パスワード間違ってる",
   },
+  UNAUTH: {
+    statusCode: 401,
+    message: "ログインが必要",
+  },
   // リソース系
   AUTH_RESOURCE_NOTFOUND: {
     statusCode: 404,

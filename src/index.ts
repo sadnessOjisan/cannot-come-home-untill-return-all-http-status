@@ -36,6 +36,8 @@ app.post("/login", function (req: Request, res) {
   );
   try {
     const users = authUsecase.signIn(req);
+    // login成功は200
+    // FYI: https://stackoverflow.com/questions/7064374/proper-http-headers-for-login-success-fail-responses
     res.status(200).json(users);
     return;
   } catch (e) {
@@ -60,7 +62,7 @@ app.post("/signup", function (req: Request, res) {
   );
   try {
     const users = authUsecase.signUp(req);
-    res.status(200).json(users);
+    res.status(201).json(users);
     return;
   } catch (e) {
     if (e instanceof ShouldHandleError) {
