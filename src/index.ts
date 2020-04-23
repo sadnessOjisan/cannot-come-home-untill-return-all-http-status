@@ -34,6 +34,11 @@ app.get("/users", function (req, res) {
 
 // FIXME: try-catchの共通処理系デコレータとかに押し込めたい
 
+/**
+ * ログインせずに投稿した場合は審査があって、投稿してもDBに登録されない。
+ * 審査サービスが代わりにINSERTする。
+ * そのため一旦受け付けるということで202を返す
+ */
 app.get("/posts-by-anonymous", function (req, res) {
   const usecase = PostByAnonymousUsecase.of(
     PostService.of(PostRepositry.of(), ConfirmApiRepository.of())
