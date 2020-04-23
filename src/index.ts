@@ -14,6 +14,8 @@ import { AuthRepository } from "./repository/AuthRepository";
 import { ShouldHandleError } from "./helper/ShouldHandleError";
 import { commponValidation } from "./helper/statusCheck";
 import { ERROR_CODE } from "./const/Error";
+import { ConfirmApiRepository } from "./repository/ConfirmApiRepository";
+import { PostByAnonymousUsecase } from "./usecase/PostByAnonymousUsecase";
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,17 +25,38 @@ app.get("/users", function (req, res) {
   commponValidation(req);
   const usecase = UserGetUsecase.of(
     IdService.of(),
-    PostService.of(PostRepositry.of()),
-    UserService.of(UserRepository.of())
+    PostService.of(PostRepositry.of(), ConfirmApiRepository.of()),
+    UserService.of(UserRepository.of(), AuthRepository.of())
   );
   const users = usecase.getUsers();
   res.status(200).json(users);
 });
 
+// FIXME: try-catchの共通処理系デコレータとかに押し込めたい
+
+app.get("/posts-by-anonymous", function (req, res) {
+  const usecase = PostByAnonymousUsecase.of(
+    PostService.of(PostRepositry.of(), ConfirmApiRepository.of())
+  );
+  try {
+    commponValidation(req);
+    usecase.postByAnonymous(req);
+    res.status(202).json();
+  } catch (e) {
+    if (e instanceof ShouldHandleError) {
+      console.log(e.toJSON().errorInfo.message);
+      res
+        .status(e.toJSON().errorInfo.statusCode)
+        .json(e.toJSON().errorInfo.message);
+    }
+    res.status(ERROR_CODE.WAKARAN.statusCode).json(ERROR_CODE.WAKARAN.message);
+  }
+});
+
 app.get("/me", function (req, res) {
   const usecase = UserGetUsecase.of(
     IdService.of(),
-    PostService.of(PostRepositry.of()),
+    PostService.of(PostRepositry.of(), ConfirmApiRepository.of()),
     UserService.of(UserRepository.of(), AuthRepository.of())
   );
 
@@ -85,7 +108,7 @@ app.post("/signup", function (req: Request, res) {
     AuthService.of(
       AuthRepository.of(),
       UserRepository.of(),
-      UserService.of(UserRepository.of())
+      UserService.of(UserRepository.of(), AuthRepository.of())
     )
   );
   try {

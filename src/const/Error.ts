@@ -26,6 +26,14 @@ export const ERROR_CODE = {
     statusCode: 400,
     message: "フォーマットと違う値を認証に入れてる",
   },
+  MISSING_CONTENT: {
+    statusCode: 400,
+    message: "投稿文が空です",
+  },
+  INVALID_CONTENT: {
+    statusCode: 400,
+    message: "投稿文が不正フォーマットです",
+  },
   // リクエストヘッダ系
   UNSUPPORTED_HTTP_VERSION: {
     statusCode: 505,
